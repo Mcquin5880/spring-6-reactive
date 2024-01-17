@@ -2,7 +2,9 @@ package org.mcq.spring6reactive;
 
 import lombok.RequiredArgsConstructor;
 import org.mcq.spring6reactive.domain.Beer;
+import org.mcq.spring6reactive.domain.Customer;
 import org.mcq.spring6reactive.repository.BeerRepository;
+import org.mcq.spring6reactive.repository.CustomerRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -14,10 +16,12 @@ import java.time.LocalDateTime;
 public class DataLoader implements CommandLineRunner {
 
     private final BeerRepository beerRepository;
+    private final CustomerRepository customerRepository;
 
     @Override
     public void run(String... args) {
         loadBeerData();
+        loadCustomerData();
     }
 
     private void loadBeerData() {
@@ -57,6 +61,34 @@ public class DataLoader implements CommandLineRunner {
                 beerRepository.save(beer2).subscribe();
                 beerRepository.save(beer3).subscribe();
             }
+        });
+    }
+
+    private void loadCustomerData() {
+        customerRepository.count().subscribe(count -> {
+           if (count == 0) {
+               Customer cust1 = Customer.builder()
+                       .name("Michael")
+                       .createdDate(LocalDateTime.now())
+                       .lastModifiedDate(LocalDateTime.now())
+                       .build();
+
+               Customer cust2 = Customer.builder()
+                       .name("Jane")
+                       .createdDate(LocalDateTime.now())
+                       .lastModifiedDate(LocalDateTime.now())
+                       .build();
+
+               Customer cust3 = Customer.builder()
+                       .name("Mr. Anderson")
+                       .createdDate(LocalDateTime.now())
+                       .lastModifiedDate(LocalDateTime.now())
+                       .build();
+
+               customerRepository.save(cust1).subscribe();
+               customerRepository.save(cust2).subscribe();
+               customerRepository.save(cust3).subscribe();
+           }
         });
     }
 }

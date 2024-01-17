@@ -38,7 +38,7 @@ public class BeerServiceImpl implements BeerService {
     public Mono<BeerDTO> updateBeer(Integer id, BeerDTO beerDTO) {
         return beerRepository.findById(id)
                 .map(foundBeer -> {
-                   foundBeer.setName(beerDTO.getName());
+                    foundBeer.setName(beerDTO.getName());
                     foundBeer.setBeerStyle(beerDTO.getBeerStyle());
                     foundBeer.setPrice(beerDTO.getPrice());
                     foundBeer.setUpc(beerDTO.getUpc());
