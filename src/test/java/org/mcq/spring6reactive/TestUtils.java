@@ -1,7 +1,7 @@
 package org.mcq.spring6reactive;
 
 import org.mcq.spring6reactive.domain.Beer;
-import org.mcq.spring6reactive.model.CustomerDTO;
+import org.mcq.spring6reactive.domain.Customer;
 
 import java.math.BigDecimal;
 
@@ -17,8 +17,8 @@ public class TestUtils {
                 .build();
     }
 
-    public static CustomerDTO getTestCustomer() {
-        return CustomerDTO.builder()
+    public static Customer getTestCustomer() {
+        return Customer.builder()
                 .name("Test Customer")
                 .build();
     }
