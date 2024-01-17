@@ -14,8 +14,8 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class CustomerController {
 
-    private static final String CUSTOMER_PATH = "/api/v2/customer";
-    private static final String CUSTOMER_PATH_ID = CUSTOMER_PATH + "/{id}";
+    public static final String CUSTOMER_PATH = "/api/v2/customer";
+    public static final String CUSTOMER_PATH_ID = CUSTOMER_PATH + "/{id}";
 
     private final CustomerService customerService;
 
@@ -42,14 +42,14 @@ public class CustomerController {
     Mono<ResponseEntity<Void>> updateExistingCustomer(@PathVariable Integer id,
                                                       @Validated @RequestBody CustomerDTO customerDTO) {
         return customerService.updateCustomer(id, customerDTO)
-                .map(savedDto -> ResponseEntity.ok().build());
+                .map(savedDto -> ResponseEntity.noContent().build());
     }
 
     @PatchMapping(CUSTOMER_PATH_ID)
     Mono<ResponseEntity<Void>> patchExistingCustomer(@PathVariable Integer id,
                                                      @Validated @RequestBody CustomerDTO customerDTO) {
         return customerService.patchCustomer(id, customerDTO)
-                .map(updatedDto -> ResponseEntity.ok().build());
+                .map(updatedDto -> ResponseEntity.noContent().build());
     }
 
     @DeleteMapping(CUSTOMER_PATH_ID)
