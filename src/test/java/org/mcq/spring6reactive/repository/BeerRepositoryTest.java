@@ -1,5 +1,7 @@
 package org.mcq.spring6reactive.repository;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mcq.spring6reactive.config.DatabaseConfig;
 import org.mcq.spring6reactive.domain.Beer;
@@ -22,6 +24,12 @@ class BeerRepositoryTest {
     void testSaveNewBeer() {
         beerRepository.save(getTestBeer())
                 .subscribe(System.out::println);
+    }
+
+    @Test
+    void testCreateJson() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        System.out.println(objectMapper.writeValueAsString(getTestBeer()));
     }
 
     Beer getTestBeer() {
