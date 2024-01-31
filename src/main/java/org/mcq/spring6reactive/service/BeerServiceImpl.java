@@ -17,9 +17,17 @@ public class BeerServiceImpl implements BeerService {
     private final BeerMapper beerMapper;
 
     @Override
-    public Flux<BeerDTO> listBeers() {
-        return beerRepository.findAll()
-                .map(beerMapper::beerToBeerDto);
+    public Flux<BeerDTO> listBeers(String name, String beerStyle) {
+        if (StringUtils.hasText(name)) {
+            return beerRepository.findByName(name)
+                    .map(beerMapper::beerToBeerDto);
+        } else if (StringUtils.hasText(beerStyle)) {
+            return beerRepository.findByBeerStyle(beerStyle)
+                    .map(beerMapper::beerToBeerDto);
+        } else {
+            return beerRepository.findAll()
+                    .map(beerMapper::beerToBeerDto);
+        }
     }
 
     @Override
@@ -81,5 +89,4 @@ public class BeerServiceImpl implements BeerService {
     public Mono<Void> deleteBeerById(Integer id) {
         return beerRepository.deleteById(id);
     }
-
 }

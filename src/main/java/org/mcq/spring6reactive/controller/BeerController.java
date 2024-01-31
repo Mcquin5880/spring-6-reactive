@@ -22,8 +22,9 @@ public class BeerController {
     private final BeerService beerService;
 
     @GetMapping(BEER_PATH)
-    Flux<BeerDTO> listBeers() {
-        return beerService.listBeers();
+    Flux<BeerDTO> listBeers(@RequestParam(required = false) String name,
+                            @RequestParam(required = false) String beerStyle) {
+        return beerService.listBeers(name, beerStyle);
     }
 
     @GetMapping(BEER_PATH_ID)
@@ -64,5 +65,4 @@ public class BeerController {
                 .map(beerDTO -> beerService.deleteBeerById(beerDTO.getId()))
                 .thenReturn(ResponseEntity.noContent().build());
     }
-
 }

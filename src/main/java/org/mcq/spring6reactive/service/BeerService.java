@@ -6,7 +6,7 @@ import reactor.core.publisher.Mono;
 
 public interface BeerService {
 
-    Flux<BeerDTO> listBeers();
+    Flux<BeerDTO> listBeers(String name, String beerStyle);
 
     Mono<BeerDTO> getBeerById(Integer id);
 
